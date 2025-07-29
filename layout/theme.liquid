@@ -32,7 +32,7 @@
       <meta name="description" content="{{ brand_name }} supplies {{ site_keywords }}. Same‑day pickup in {{ brampton_city }}. Call 416‑309‑1913.">
     {% endif %}
 
-    <meta name="keywords" content="{{ site_keywords }}, Ontario, Canada">
+    <meta name="keywords" content="{{ site_keywords }}, Ontario, Canada{% if product.metafields.seo.focus_keywords != blank %}, {{ product.metafields.seo.focus_keywords }}{% endif %}">
     <meta property="og:title" content="{{ page_title | default: brand_name }}">
     <meta property="og:description" content="{{ page_description | default: 'Largest stock of car parts in Brampton' }}">
     <meta property="og:type" content="{% if template == 'product' %}product{% else %}website{% endif %}">
@@ -143,6 +143,15 @@
 
     {% sections 'footer-group' %}
 
+    <div class="visually-hidden">
+      <ul>
+        {% assign used_products = collections.all.products | where: "tags", "used" | sample: 6 %}
+        {% for product in used_products %}
+          <li><a href="{{ product.url }}">Used Car Parts in Brampton</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
     <ul hidden>
       <li id="a11y-refresh-page-message">{{ 'accessibility.refresh_page' | t }}</li>
     </ul>
@@ -168,6 +177,7 @@
       };
     </script>
 
-    {{ 'global.js' | asset_url | script_tag }}
+    {{ 'global.js' | asset_url | script_tag: defer: true }}
+    {% render 'speed-report' %}
   </body>
 </html>

@@ -1,0 +1,7 @@
+{
+  "sections": {
+    "main": {"type": "main-product"},
+    "related": {"type": "product-grid-filtered", "settings": {"title": "Related Products", "products_limit": 4}}
+  },
+  "order": ["main", "related"]
+}

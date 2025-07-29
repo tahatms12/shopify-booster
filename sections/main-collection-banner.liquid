@@ -1,0 +1,25 @@
+<h1 class="text-3xl font-bold mb-6">{{ collection.title }} — Car Parts in Brampton</h1>
+{% liquid
+  assign description_fallback = collection.description | strip_html | truncate: 160 | append: ' | Brampton aftermarket & used parts'
+%}
+{% if page_description == blank %}
+  <meta name="description" content="{{ description_fallback }}">
+{% endif %}
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"{{ shop.url }}"},
+    {"@type":"ListItem","position":2,"name":"{{ collection.title }}","item":"{{ shop.url }}{{ collection.url }}"}
+  ]
+}
+</script>
+
+{% schema %}
+{
+  "name":"Main Collection Banner",
+  "tag":"section",
+  "settings":[]
+}
+{% endschema %}
