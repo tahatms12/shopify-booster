@@ -1,0 +1,24 @@
+{% assign title = article.title %}
+{% unless title contains 'Brampton' %}
+  {% assign title = title | append: ' - Brampton' %}
+{% endunless %}
+<h1 class="text-3xl font-bold mb-6">{{ title }}</h1>
+{% if article.metafields.custom.faq_json != blank %}
+  <script type="application/ld+json">{{ article.metafields.custom.faq_json }}</script>
+{% endif %}
+{% liquid
+  assign related = all_products | where: "tags", article.tags[0] | limit:4
+%}
+<ul class="mt-8 space-y-2">
+  {% for product in related %}
+    <li><a href="{{ product.url }}">{{ product.title }}</a></li>
+  {% endfor %}
+</ul>
+
+{% schema %}
+{
+  "name":"Main Article",
+  "tag":"section",
+  "settings":[]
+}
+{% endschema %}

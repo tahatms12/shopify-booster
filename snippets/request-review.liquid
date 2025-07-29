@@ -1,0 +1,23 @@
+{% if order and order.fulfillment_status == 'fulfilled' and order.tags contains 'review_requested' == false %}
+<script>
+  setTimeout(function(){
+    fetch('/apps/request-review', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({id: {{ order.id }}, email:'{{ order.email }}', phone:'{{ order.phone }}'})
+    });
+  }, 86400000);
+</script>
+{% endif %}
+
+{% assign recent_reviews = collections.all.products | where: 'metafields.reviews.rating_count', '>', 0 | sort: 'published_at' | reverse %}
+<ul class="recent-reviews hidden">
+{% for product in recent_reviews limit:3 %}
+  {% assign img = product.metafields.reviews.images | split: ',' | first %}
+  {% assign quote = product.metafields.reviews.quotes | split: '|' | first %}
+  <li class="flex items-center space-x-2">
+    {% if img %}<img src="{{ img }}" alt="Review for {{ product.title }}" loading="lazy" width="48" height="48" class="rounded-full" />{% endif %}
+    <span>{{ quote }}</span>
+  </li>
+{% endfor %}
+</ul>
