@@ -1,0 +1,177 @@
+{% liquid
+  assign columns_desktop = section.blocks.size | at_most: 4
+  assign columns_mobile = 2
+%}
+
+<section class="feature-icons py-16 px-4 bg-gray-50">
+  <div class="container mx-auto max-w-6xl">
+    {% if section.settings.title != blank %}
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">{{ section.settings.title }}</h2>
+        {% if section.settings.description != blank %}
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ section.settings.description }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="features-grid grid grid-cols-{{ columns_mobile }} md:grid-cols-{{ columns_desktop }} gap-8">
+      {% for block in section.blocks %}
+        <div class="feature-item text-center" {{ block.shopify_attributes }}>
+          {% if block.settings.icon %}
+            <div class="feature-icon mb-6 mx-auto w-16 h-16 flex items-center justify-center bg-white rounded-full shadow-lg">
+              <img 
+                src="{{ block.settings.icon | image_url: width: 64 }}" 
+                alt="{{ block.settings.title | escape }}"
+                loading="lazy"
+                width="32"
+                height="32"
+                class="w-8 h-8"
+              >
+            </div>
+          {% else %}
+            <div class="feature-icon-fallback mb-6 mx-auto w-16 h-16 flex items-center justify-center bg-red-600 text-white rounded-full shadow-lg">
+              <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+          {% endif %}
+
+          {% if block.settings.title != blank %}
+            <h3 class="text-xl font-semibold mb-3">{{ block.settings.title }}</h3>
+          {% endif %}
+
+          {% if block.settings.caption != blank %}
+            <p class="text-gray-600 leading-relaxed">{{ block.settings.caption }}</p>
+          {% endif %}
+
+          {% if block.settings.link_url != blank and block.settings.link_text != blank %}
+            <a href="{{ block.settings.link_url }}" class="inline-block mt-4 text-red-600 hover:text-red-700 font-medium">
+              {{ block.settings.link_text }} →
+            </a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .feature-item {
+    transition: transform 0.3s ease;
+  }
+  
+  .feature-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .feature-icon {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .feature-item:hover .feature-icon,
+  .feature-item:hover .feature-icon-fallback {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+  }
+  
+  @media (max-width: 768px) {
+    .features-grid {
+      grid-template-columns: repeat({{ columns_mobile }}, 1fr);
+      gap: 2rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Feature Icons",
+  "tag": "section",
+  "class": "section section-feature-icons",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Why Choose Us"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section description",
+      "default": "Discover what makes us the preferred choice for car enthusiasts"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Feature title",
+          "default": "Compatibility"
+        },
+        {
+          "type": "textarea",
+          "id": "caption",
+          "label": "Feature description",
+          "default": "Perfect fit guaranteed for your specific vehicle make and model"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Optional link URL"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link text",
+          "default": "Learn more"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Feature Icons",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Compatibility",
+            "caption": "Perfect fit guaranteed for your specific vehicle make and model"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Easy Install",
+            "caption": "Simple installation process with detailed instructions included"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Wireless Integration",
+            "caption": "Seamless wireless connectivity with your vehicle's systems"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "24/7 Support",
+            "caption": "Expert technical support available whenever you need assistance"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

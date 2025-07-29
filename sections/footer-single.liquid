@@ -1,0 +1,331 @@
+<footer class="footer-single bg-gray-900 text-white">
+  <div class="container mx-auto px-4">
+    
+    {%- comment -%} Main Footer Content {%- endcomment -%}
+    <div class="footer-main py-16">
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
+        
+        {%- comment -%} Brand Column {%- endcomment -%}
+        <div class="footer-brand lg:col-span-1">
+          {% if section.settings.logo %}
+            <img 
+              src="{{ section.settings.logo | image_url: width: 200 }}" 
+              alt="{{ shop.name }}"
+              loading="lazy"
+              width="150"
+              height="50"
+              class="footer-logo mb-6 brightness-0 invert"
+            >
+          {% else %}
+            <h3 class="text-2xl font-bold mb-6">{{ shop.name }}</h3>
+          {% endif %}
+          
+          {% if section.settings.description != blank %}
+            <p class="text-gray-300 mb-6 leading-relaxed">
+              {{ section.settings.description }}
+            </p>
+          {% endif %}
+
+          {%- comment -%} Contact Info {%- endcomment -%}
+          <div class="contact-info space-y-3">
+            <div class="contact-item flex items-center">
+              <svg class="w-5 h-5 mr-3 text-red-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+              </svg>
+              <a href="tel:4163091913" class="text-gray-300 hover:text-white transition-colors">
+                416-309-1913
+              </a>
+            </div>
+            
+            <div class="contact-item flex items-center">
+              <svg class="w-5 h-5 mr-3 text-red-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+                <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+              </svg>
+              <a href="mailto:sales@autoenhancehub.com" class="text-gray-300 hover:text-white transition-colors">
+                sales@autoenhancehub.com
+              </a>
+            </div>
+
+            {% if section.settings.address != blank %}
+              <div class="contact-item flex items-start">
+                <svg class="w-5 h-5 mr-3 text-red-400 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                </svg>
+                <span class="text-gray-300">{{ section.settings.address }}</span>
+              </div>
+            {% endif %}
+          </div>
+
+          {%- comment -%} Social Media {%- endcomment -%}
+          <div class="social-links flex space-x-4 mt-6">
+            {% if section.settings.instagram_url != blank %}
+              <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+              </a>
+            {% endif %}
+            
+            {% if section.settings.facebook_url != blank %}
+              <a href="{{ section.settings.facebook_url }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="Facebook">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+            {% endif %}
+            
+            {% if section.settings.youtube_url != blank %}
+              <a href="{{ section.settings.youtube_url }}" target="_blank" rel="noopener" class="text-gray-400 hover:text-white transition-colors" aria-label="YouTube">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+                </svg>
+              </a>
+            {% endif %}
+          </div>
+        </div>
+
+        {%- comment -%} Navigation Links {%- endcomment -%}
+        <div class="footer-nav grid grid-cols-1 md:grid-cols-3 lg:col-span-3 gap-8">
+          {% for block in section.blocks %}
+            {% if block.type == 'link_list' %}
+              <div class="nav-column" {{ block.shopify_attributes }}>
+                {% if block.settings.heading != blank %}
+                  <h4 class="text-lg font-semibold mb-4 text-white">{{ block.settings.heading }}</h4>
+                {% endif %}
+                
+                {% if block.settings.menu != blank %}
+                  <ul class="space-y-3">
+                    {% for link in linklists[block.settings.menu].links %}
+                      <li>
+                        <a href="{{ link.url }}" class="text-gray-300 hover:text-white transition-colors">
+                          {{ link.title }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Newsletter Section {%- endcomment -%}
+    {% if section.settings.show_newsletter %}
+      <div class="newsletter-section py-8 border-t border-gray-700">
+        <div class="max-w-2xl mx-auto text-center">
+          <h3 class="text-xl font-semibold mb-4">Stay Updated</h3>
+          <p class="text-gray-300 mb-6">Get the latest news about new products and special offers</p>
+          
+          <form action="{{ routes.customer_register_url }}" method="post" class="newsletter-form flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+            <input 
+              type="email" 
+              name="email" 
+              placeholder="Enter your email address"
+              required
+              class="flex-1 px-4 py-3 bg-gray-800 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-red-500"
+            >
+            <button 
+              type="submit"
+              class="btn btn--primary px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition-colors"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+    {% endif %}
+
+    {%- comment -%} Footer Bottom {%- endcomment -%}
+    <div class="footer-bottom py-8 border-t border-gray-700">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="footer-legal flex flex-wrap justify-center md:justify-start gap-4 mb-4 md:mb-0">
+          <span class="text-gray-400 text-sm">
+            © {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+          </span>
+          {% if section.settings.show_policy_links %}
+            <a href="{{ shop.privacy_policy.url }}" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+            <a href="{{ shop.terms_of_service.url }}" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+            <a href="{{ shop.refund_policy.url }}" class="text-gray-400 hover:text-white text-sm transition-colors">Refund Policy</a>
+          {% endif %}
+        </div>
+
+        {% if section.settings.show_payment_icons %}
+          <div class="payment-methods flex items-center space-x-2">
+            <span class="text-gray-400 text-sm mr-4">We Accept:</span>
+            <div class="flex space-x-2">
+              <svg class="w-8 h-5 text-gray-400" fill="currentColor" viewBox="0 0 38 24">
+                <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"/>
+              </svg>
+              <svg class="w-8 h-5 text-gray-400" fill="currentColor" viewBox="0 0 38 24">
+                <path d="M35 0H3C1.3 0 0 1.3 0 3v18c0 1.7 1.4 3 3 3h32c1.7 0 3-1.3 3-3V3c0-1.7-1.4-3-3-3z"/>
+              </svg>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-single {
+    margin-top: auto;
+  }
+  
+  .footer-logo {
+    max-width: 150px;
+    height: auto;
+  }
+  
+  .contact-item {
+    transition: all 0.3s ease;
+  }
+  
+  .contact-item:hover {
+    transform: translateX(4px);
+  }
+  
+  .social-links a {
+    transition: all 0.3s ease;
+  }
+  
+  .social-links a:hover {
+    transform: translateY(-2px);
+  }
+  
+  .newsletter-form input:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+  }
+  
+  @media (max-width: 768px) {
+    .footer-nav {
+      grid-template-columns: 1fr;
+    }
+    
+    .newsletter-form {
+      flex-direction: column;
+    }
+    
+    .footer-bottom {
+      text-align: center;
+    }
+    
+    .footer-legal {
+      justify-content: center;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Footer Single",
+  "tag": "footer",
+  "class": "section section-footer-single",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Footer logo"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Brand description",
+      "default": "Your trusted partner for premium car parts and accessories in Brampton. Expert installation and unmatched customer service since day one."
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Store address",
+      "default": "123 Main Street, Brampton, ON L6X 1A1"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL",
+      "default": "https://instagram.com/autoenhance"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "youtube_url",
+      "label": "YouTube URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_newsletter",
+      "label": "Show newsletter signup",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_policy_links",
+      "label": "Show policy links",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show payment icons",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "link_list",
+      "name": "Navigation",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Quick Links"
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Menu"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer Single",
+      "blocks": [
+        {
+          "type": "link_list",
+          "settings": {
+            "heading": "Shop",
+            "menu": "footer"
+          }
+        },
+        {
+          "type": "link_list",
+          "settings": {
+            "heading": "Support",
+            "menu": "footer"
+          }
+        },
+        {
+          "type": "link_list",
+          "settings": {
+            "heading": "Company",
+            "menu": "footer"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

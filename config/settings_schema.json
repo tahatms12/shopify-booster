@@ -1,0 +1,435 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Auto Enhance Hub Theme",
+    "theme_author": "Auto Enhance Hub",
+    "theme_version": "1.0.0",
+    "theme_documentation_url": "https://autoenhancehub.com/theme-docs",
+    "theme_support_url": "mailto:sales@autoenhancehub.com"
+  },
+  {
+    "name": "Brand Settings",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "default": 150,
+        "unit": "px"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      },
+      {
+        "type": "image_picker",
+        "id": "social_share_image",
+        "label": "Social sharing image",
+        "info": "Recommended size: 1200x630px"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Brand Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_brand_navy",
+        "label": "Brand Navy",
+        "default": "#202D36"
+      },
+      {
+        "type": "color",
+        "id": "color_brand_red",
+        "label": "Brand Red",
+        "default": "#3C0007"
+      },
+      {
+        "type": "color",
+        "id": "color_brand_grey",
+        "label": "Brand Grey",
+        "default": "#929CAA"
+      },
+      {
+        "type": "color",
+        "id": "color_brand_dark_red",
+        "label": "Brand Dark Red",
+        "default": "#6C0102"
+      },
+      {
+        "type": "header",
+        "content": "Background Colors"
+      },
+      {
+        "type": "color",
+        "id": "background_primary",
+        "label": "Primary background",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "background_secondary",
+        "label": "Secondary background",
+        "default": "#f9fafb"
+      },
+      {
+        "type": "header",
+        "content": "Text Colors"
+      },
+      {
+        "type": "color",
+        "id": "text_primary",
+        "label": "Primary text",
+        "default": "#111827"
+      },
+      {
+        "type": "color",
+        "id": "text_secondary",
+        "label": "Secondary text",
+        "default": "#6b7280"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_header_font",
+        "label": "Heading font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "range",
+        "id": "heading_scale",
+        "label": "Heading size scale",
+        "min": 80,
+        "max": 120,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      },
+      {
+        "type": "header",
+        "content": "Body text"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "label": "Body font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "range",
+        "id": "body_scale",
+        "label": "Body text size scale",
+        "min": 80,
+        "max": 120,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page width",
+        "min": 1000,
+        "max": 1600,
+        "step": 50,
+        "default": 1280,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "spacing_sections_desktop",
+        "label": "Desktop section spacing",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "default": 0,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "spacing_sections_mobile",
+        "label": "Mobile section spacing",
+        "min": 0,
+        "max": 50,
+        "step": 2,
+        "default": 0,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Product Grid",
+    "settings": [
+      {
+        "type": "range",
+        "id": "products_per_page",
+        "label": "Products per page",
+        "min": 8,
+        "max": 50,
+        "step": 2,
+        "default": 16
+      },
+      {
+        "type": "select",
+        "id": "product_grid_image_size",
+        "label": "Product image size",
+        "options": [
+          {
+            "value": "square",
+            "label": "Square"
+          },
+          {
+            "value": "portrait",
+            "label": "Portrait"
+          },
+          {
+            "value": "landscape",
+            "label": "Landscape"
+          }
+        ],
+        "default": "square"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Show product vendor",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_product_type",
+        "label": "Show product type",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_quick_add",
+        "label": "Enable quick add to cart",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart type",
+        "options": [
+          {
+            "value": "drawer",
+            "label": "Drawer"
+          },
+          {
+            "value": "page",
+            "label": "Page"
+          }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_notes_enable",
+        "label": "Enable cart notes",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "cart_free_shipping_threshold",
+        "label": "Free shipping threshold",
+        "info": "Leave blank to disable. Enter amount without currency symbol.",
+        "default": "75"
+      }
+    ]
+  },
+  {
+    "name": "Search",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "predictive_search_enabled",
+        "label": "Enable predictive search",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "predictive_search_show_vendor",
+        "label": "Show vendor in search results",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "predictive_search_show_price",
+        "label": "Show price in search results",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook",
+        "info": "https://facebook.com/yourstore"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram",
+        "info": "https://instagram.com/autoenhance",
+        "default": "https://instagram.com/autoenhance"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube",
+        "info": "https://youtube.com/yourstore"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter_link",
+        "label": "Twitter",
+        "info": "https://twitter.com/yourstore"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok",
+        "info": "https://tiktok.com/@yourstore"
+      }
+    ]
+  },
+  {
+    "name": "Contact Information",
+    "settings": [
+      {
+        "type": "text",
+        "id": "store_address",
+        "label": "Store address",
+        "default": "123 Main Street, Brampton, ON L6X 1A1"
+      },
+      {
+        "type": "text",
+        "id": "store_postcode",
+        "label": "Postal code",
+        "default": "L6X 1A1"
+      },
+      {
+        "type": "text",
+        "id": "store_phone",
+        "label": "Phone number",
+        "default": "416-309-1913"
+      },
+      {
+        "type": "text",
+        "id": "store_email",
+        "label": "Email address",
+        "default": "sales@autoenhancehub.com"
+      },
+      {
+        "type": "text",
+        "id": "store_lat",
+        "label": "Store latitude",
+        "info": "Used for local SEO schema markup",
+        "default": "43.7315"
+      },
+      {
+        "type": "text",
+        "id": "store_long",
+        "label": "Store longitude",
+        "info": "Used for local SEO schema markup",
+        "default": "-79.7624"
+      }
+    ]
+  },
+  {
+    "name": "Performance",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "animations_reveal_on_scroll",
+        "label": "Enable reveal animations on scroll",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "animations_hover_effects",
+        "label": "Enable hover animations",
+        "default": true
+      },
+      {
+        "type": "select",
+        "id": "image_loading",
+        "label": "Image loading",
+        "options": [
+          {
+            "value": "lazy",
+            "label": "Lazy (recommended)"
+          },
+          {
+            "value": "eager",
+            "label": "Eager"
+          }
+        ],
+        "default": "lazy"
+      }
+    ]
+  },
+  {
+    "name": "Advanced",
+    "settings": [
+      {
+        "type": "textarea",
+        "id": "custom_css",
+        "label": "Custom CSS",
+        "info": "Add custom CSS code here"
+      },
+      {
+        "type": "textarea",
+        "id": "custom_js",
+        "label": "Custom JavaScript",
+        "info": "Add custom JavaScript code here"
+      },
+      {
+        "type": "text",
+        "id": "google_analytics_id",
+        "label": "Google Analytics ID",
+        "info": "GA4 Measurement ID (G-XXXXXXXXXX)"
+      },
+      {
+        "type": "text",
+        "id": "facebook_pixel_id",
+        "label": "Facebook Pixel ID"
+      }
+    ]
+  }
+]

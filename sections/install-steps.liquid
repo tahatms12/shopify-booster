@@ -1,0 +1,265 @@
+<section class="install-steps py-16 px-4 bg-white">
+  <div class="container mx-auto max-w-6xl">
+    {% if section.settings.title != blank %}
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">{{ section.settings.title }}</h2>
+        {% if section.settings.description != blank %}
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ section.settings.description }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="steps-container">
+      {% for block in section.blocks %}
+        {% assign step_number = forloop.index %}
+        <div class="step-item {% if section.settings.layout == 'horizontal' %}flex{% else %}block{% endif %} {% unless forloop.last %}mb-12{% endunless %}" {{ block.shopify_attributes }}>
+          
+          {% comment %} Step Number {% endcomment %}
+          <div class="step-number-container {% if section.settings.layout == 'horizontal' %}flex-shrink-0 mr-8{% else %}text-center mb-6{% endif %}">
+            <div class="step-number inline-flex items-center justify-center w-16 h-16 bg-red-600 text-white rounded-full text-2xl font-bold shadow-lg">
+              {{ step_number }}
+            </div>
+            {% unless forloop.last %}
+              <div class="step-connector {% if section.settings.layout == 'horizontal' %}hidden{% else %}block w-1 h-16 bg-gray-200 mx-auto mt-4{% endif %}"></div>
+            {% endunless %}
+          </div>
+
+          {% comment %} Step Content {% endcomment %}
+          <div class="step-content {% if section.settings.layout == 'horizontal' %}flex items-center{% else %}text-center{% endif %}">
+            {% if block.settings.image %}
+              <div class="step-image {% if section.settings.layout == 'horizontal' %}mr-8{% else %}mb-6{% endif %}">
+                <img 
+                  src="{{ block.settings.image | image_url: width: 400 }}" 
+                  alt="{{ block.settings.title | escape }}"
+                  loading="lazy"
+                  width="300"
+                  height="200"
+                  class="rounded-lg shadow-md {% if section.settings.layout == 'horizontal' %}w-80 h-48{% else %}w-full max-w-md mx-auto h-48{% endif %} object-cover"
+                >
+              </div>
+            {% endif %}
+
+            <div class="step-text {% if section.settings.layout == 'horizontal' %}flex-1{% endif %}">
+              {% if block.settings.title != blank %}
+                <h3 class="text-xl md:text-2xl font-semibold mb-4 text-gray-900">
+                  {{ block.settings.title }}
+                </h3>
+              {% endif %}
+
+              {% if block.settings.description != blank %}
+                <p class="text-gray-600 leading-relaxed {% if section.settings.layout == 'horizontal' %}text-left{% else %}text-center{% endif %}">
+                  {{ block.settings.description }}
+                </p>
+              {% endif %}
+
+              {% if block.settings.additional_info != blank %}
+                <div class="mt-4 p-4 bg-gray-50 rounded-lg">
+                  <p class="text-sm text-gray-700">
+                    <strong>💡 Pro Tip:</strong> {{ block.settings.additional_info }}
+                  </p>
+                </div>
+              {% endif %}
+
+              {% if block.settings.video_url != blank %}
+                <div class="mt-4">
+                  <a href="{{ block.settings.video_url }}" target="_blank" class="inline-flex items-center text-red-600 hover:text-red-700 font-medium">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10 12l-4-4h8l-4 4z"/>
+                    </svg>
+                    Watch Video Guide
+                  </a>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.cta_text != blank and section.settings.cta_url != blank %}
+      <div class="text-center mt-12">
+        <a href="{{ section.settings.cta_url }}" class="btn btn--primary inline-block px-8 py-4">
+          {{ section.settings.cta_text }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<style>
+  .step-item {
+    position: relative;
+  }
+  
+  .step-number {
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .step-item:hover .step-number {
+    transform: scale(1.1);
+    box-shadow: 0 8px 25px rgba(220, 38, 38, 0.3);
+  }
+  
+  .step-connector {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .step-image img {
+    transition: transform 0.3s ease;
+  }
+  
+  .step-item:hover .step-image img {
+    transform: scale(1.02);
+  }
+  
+  {% if section.settings.layout == 'horizontal' %}
+    @media (max-width: 768px) {
+      .step-item {
+        flex-direction: column !important;
+        text-align: center;
+      }
+      
+      .step-number-container {
+        margin-right: 0 !important;
+        margin-bottom: 1.5rem;
+      }
+      
+      .step-content {
+        flex-direction: column !important;
+      }
+      
+      .step-image {
+        margin-right: 0 !important;
+        margin-bottom: 1.5rem;
+      }
+      
+      .step-text {
+        text-align: center !important;
+      }
+    }
+  {% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Install Steps",
+  "tag": "section",
+  "class": "section section-install-steps",
+  "max_blocks": 8,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Easy Installation Process"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section description",
+      "default": "Follow these simple steps to install your new car parts"
+    },
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout style",
+      "options": [
+        {
+          "value": "vertical",
+          "label": "Vertical (centered)"
+        },
+        {
+          "value": "horizontal",
+          "label": "Horizontal (side by side)"
+        }
+      ],
+      "default": "vertical"
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Call to action text",
+      "default": "Start Shopping"
+    },
+    {
+      "type": "url",
+      "id": "cta_url",
+      "label": "Call to action URL",
+      "default": "/collections/all"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Installation Step",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Step image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Step title",
+          "default": "Step Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Step description",
+          "default": "Detailed description of this installation step"
+        },
+        {
+          "type": "textarea",
+          "id": "additional_info",
+          "label": "Pro tip or additional info"
+        },
+        {
+          "type": "url",
+          "id": "video_url",
+          "label": "Video guide URL (optional)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Install Steps",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Prepare Your Vehicle",
+            "description": "Ensure your car is parked on level ground and the engine is cool. Gather all necessary tools."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Remove Old Parts",
+            "description": "Carefully disconnect and remove the existing parts following safety protocols."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Install New Parts",
+            "description": "Mount your new Auto Enhance Hub parts following the included instructions."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Test & Enjoy",
+            "description": "Test all connections and enjoy your upgraded vehicle performance!"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

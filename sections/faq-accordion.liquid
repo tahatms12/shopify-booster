@@ -1,0 +1,252 @@
+<section class="faq-accordion py-16 px-4 bg-gray-50">
+  <div class="container mx-auto max-w-4xl">
+    {% if section.settings.title != blank %}
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">{{ section.settings.title }}</h2>
+        {% if section.settings.description != blank %}
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ section.settings.description }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="faq-list space-y-4">
+      {% for block in section.blocks %}
+        <div class="faq-item bg-white rounded-lg shadow-sm border overflow-hidden" {{ block.shopify_attributes }}>
+          <details class="group">
+            <summary class="faq-question flex items-center justify-between p-6 cursor-pointer hover:bg-gray-50 transition-colors">
+              <h3 class="text-lg font-semibold text-gray-900 pr-4">
+                {{ block.settings.question }}
+              </h3>
+              <span class="faq-icon flex-shrink-0 w-6 h-6 text-gray-500 transition-transform group-open:rotate-180">
+                <svg fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                </svg>
+              </span>
+            </summary>
+            
+            <div class="faq-answer px-6 pb-6">
+              <div class="text-gray-700 leading-relaxed prose prose-sm max-w-none">
+                {{ block.settings.answer }}
+              </div>
+              
+              {% if block.settings.link_text != blank and block.settings.link_url != blank %}
+                <div class="mt-4">
+                  <a href="{{ block.settings.link_url }}" class="inline-flex items-center text-red-600 hover:text-red-700 font-medium">
+                    {{ block.settings.link_text }}
+                    <svg class="w-4 h-4 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                    </svg>
+                  </a>
+                </div>
+              {% endif %}
+            </div>
+          </details>
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.contact_text != blank %}
+      <div class="text-center mt-12 p-8 bg-white rounded-lg shadow-sm">
+        <h3 class="text-xl font-semibold mb-4">Still have questions?</h3>
+        <p class="text-gray-600 mb-6">{{ section.settings.contact_text }}</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="tel:4163091913" class="btn btn--secondary inline-flex items-center justify-center px-6 py-3">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/>
+            </svg>
+            Call Us: 416-309-1913
+          </a>
+          <a href="mailto:sales@autoenhancehub.com" class="btn btn--primary inline-flex items-center justify-center px-6 py-3">
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+              <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z"/>
+              <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"/>
+            </svg>
+            Email Support
+          </a>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{%- comment -%} FAQ Page JSON-LD Schema {%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {% for block in section.blocks %}
+      {
+        "@type": "Question",
+        "name": "{{ block.settings.question | escape }}",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "{{ block.settings.answer | strip_html | escape }}"
+        }
+      }{% unless forloop.last %},{% endunless %}
+    {% endfor %}
+  ]
+}
+</script>
+
+<style>
+  .faq-item {
+    transition: all 0.3s ease;
+  }
+  
+  .faq-item:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  
+  .faq-question {
+    transition: background-color 0.3s ease;
+  }
+  
+  .faq-icon {
+    transition: transform 0.3s ease;
+  }
+  
+  details[open] .faq-icon {
+    transform: rotate(180deg);
+  }
+  
+  .faq-answer {
+    border-top: 1px solid #f3f4f6;
+  }
+  
+  details[open] summary {
+    border-bottom: 1px solid #f3f4f6;
+  }
+  
+  /* Custom details/summary styling */
+  details > summary {
+    list-style: none;
+  }
+  
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  /* Prose styling for rich text */
+  .prose p {
+    margin-bottom: 1rem;
+  }
+  
+  .prose ul,
+  .prose ol {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+  }
+  
+  .prose li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .prose strong {
+    font-weight: 600;
+    color: #111827;
+  }
+  
+  .prose a {
+    color: #dc2626;
+    text-decoration: underline;
+  }
+  
+  .prose a:hover {
+    color: #b91c1c;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "FAQ Accordion",
+  "tag": "section",
+  "class": "section section-faq-accordion",
+  "max_blocks": 20,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Frequently Asked Questions"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section description",
+      "default": "Find answers to common questions about our products and services"
+    },
+    {
+      "type": "textarea",
+      "id": "contact_text",
+      "label": "Contact section text",
+      "default": "Can't find what you're looking for? Our expert team is here to help with any questions about installation, compatibility, or product details."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What is your return policy?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>We offer a 30-day return policy on all products. Items must be in original condition with packaging.</p>"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Optional link text"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Optional link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Accordion",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer installation services?",
+            "answer": "<p>Yes! We provide professional installation services in the Brampton area. Our certified technicians ensure your parts are installed correctly and safely.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How do I know if a part is compatible with my vehicle?",
+            "answer": "<p>Use our compatibility checker tool or contact our experts at 416-309-1913. We'll help you find the perfect fit for your specific make, model, and year.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a 30-day return policy on all products. Items must be in original condition with packaging. Installation fees are non-refundable.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer warranties on your products?",
+            "answer": "<p>Yes, all our products come with manufacturer warranties. Extended warranty options are available for select items. Contact us for specific warranty details.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,144 @@
+{% liquid
+  assign bg_color = section.settings.bg_color | default: '#202D36'
+  assign overlay_opacity = section.settings.overlay_opacity | divided_by: 100.0
+%}
+
+<section class="hero-banner relative overflow-hidden" style="min-height: {{ section.settings.min_height }}vh;">
+  {% if section.settings.image %}
+    <div class="hero-banner__media absolute inset-0">
+      <picture>
+        <source srcset="{{ section.settings.image | image_url: width: 2880 }}" media="(min-width: 1280px)">
+        <source srcset="{{ section.settings.image | image_url: width: 1536 }}" media="(min-width: 768px)">
+        <img 
+          src="{{ section.settings.image | image_url: width: 768 }}" 
+          alt="{{ section.settings.heading | escape }}" 
+          loading="lazy" 
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          class="w-full h-full object-cover"
+        >
+      </picture>
+    </div>
+  {% endif %}
+
+  <div 
+    class="hero-banner__overlay absolute inset-0" 
+    style="background: linear-gradient(135deg, {{ bg_color }} 0%, #3C0007 50%, #202D36 100%); opacity: {{ overlay_opacity }};"
+  ></div>
+
+  <div class="hero-banner__content relative z-10 flex items-center justify-center h-full">
+    <div class="text-center text-white px-6 max-w-4xl mx-auto">
+      {% if section.settings.heading != blank %}
+        <h1 class="hero-banner__heading text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+          {{ section.settings.heading }}
+        </h1>
+      {% endif %}
+      
+      {% if section.settings.subheading != blank %}
+        <p class="hero-banner__subheading text-lg md:text-xl lg:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
+          {{ section.settings.subheading }}
+        </p>
+      {% endif %}
+      
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="btn btn--primary inline-block mt-4 px-8 py-4 bg-white text-black font-semibold rounded hover:bg-gray-100 transition-colors">
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-banner {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .hero-banner__heading {
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .hero-banner__subheading {
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  }
+  
+  @media (max-width: 768px) {
+    .hero-banner__heading {
+      font-size: 2.5rem;
+    }
+    .hero-banner__subheading {
+      font-size: 1.125rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "tag": "section",
+  "class": "section section-hero-banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Upgrade your drive — smart, seamless, and built for your car"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Discover premium car parts and accessories designed for your vehicle"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Shop All Products"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Overlay start color",
+      "default": "#202D36"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "default": 60,
+      "unit": "%"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Section height",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "default": 80,
+      "unit": "vh"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

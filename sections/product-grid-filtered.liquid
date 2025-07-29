@@ -1,0 +1,185 @@
+{% liquid
+  assign collection_handle = section.settings.collection
+  assign products_limit = section.settings.products_limit | default: 8
+  assign columns_desktop = section.settings.columns_desktop | default: 4
+  assign columns_mobile = section.settings.columns_mobile | default: 2
+  
+  if collection_handle != blank
+    assign collection = collections[collection_handle]
+    assign products = collection.products | slice: 0, products_limit
+  else
+    assign products = collections.all.products | slice: 0, products_limit
+  endif
+%}
+
+<section class="product-grid-filtered py-16 px-4">
+  <div class="container mx-auto max-w-7xl">
+    {% if section.settings.title != blank %}
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">{{ section.settings.title }}</h2>
+        {% if section.settings.description != blank %}
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ section.settings.description }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    {% if section.settings.show_filters and collection %}
+      <div class="filters mb-8">
+        <div class="flex flex-wrap gap-4 justify-center">
+          <button class="filter-btn active px-4 py-2 rounded border" data-filter="all">All Products</button>
+          {% for tag in collection.all_tags limit: 5 %}
+            <button class="filter-btn px-4 py-2 rounded border" data-filter="{{ tag | handle }}">{{ tag }}</button>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+
+    <div class="products-grid grid grid-cols-{{ columns_mobile }} md:grid-cols-{{ columns_desktop }} gap-6 lg:gap-8" id="products-container">
+      {% for product in products %}
+        <div class="product-card-wrapper" data-tags="{{ product.tags | join: ',' | handle }}">
+          {% render 'card-product', product: product, show_vendor: section.settings.show_vendor %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if section.settings.show_view_all and collection %}
+      <div class="text-center mt-12">
+        <a href="{{ collection.url }}" class="btn btn--primary">
+          View All {{ collection.title }}
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const productCards = document.querySelectorAll('.product-card-wrapper');
+
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const filter = this.dataset.filter;
+      
+      // Update active button
+      filterBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      
+      // Filter products
+      productCards.forEach(card => {
+        if (filter === 'all' || card.dataset.tags.includes(filter)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  });
+});
+</script>
+
+<style>
+  .filter-btn {
+    background: white;
+    border: 1px solid #e5e7eb;
+    color: #374151;
+    transition: all 0.3s ease;
+  }
+  
+  .filter-btn:hover,
+  .filter-btn.active {
+    background: var(--color-brand-red);
+    border-color: var(--color-brand-red);
+    color: white;
+  }
+  
+  .product-card-wrapper {
+    transition: all 0.3s ease;
+  }
+  
+  .products-grid {
+    min-height: 400px;
+  }
+  
+  @media (max-width: 768px) {
+    .products-grid {
+      grid-template-columns: repeat({{ columns_mobile }}, 1fr);
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Product Grid Filtered",
+  "tag": "section",
+  "class": "section section-product-grid-filtered",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Featured Products"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section description"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_limit",
+      "label": "Products to show",
+      "min": 4,
+      "max": 24,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "range",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "checkbox",
+      "id": "show_filters",
+      "label": "Show product filters",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Show vendor",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View All' button",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Grid Filtered"
+    }
+  ]
+}
+{% endschema %}

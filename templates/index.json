@@ -1,0 +1,239 @@
+{
+  "sections": {
+    "announcement-bar": {
+      "type": "promo-strip",
+      "settings": {
+        "show_promo": true,
+        "announcement_text": "🚚 Free shipping on orders over $75 | Call us: 416-309-1913",
+        "link_url": "/collections/all",
+        "link_text": "Shop Now",
+        "bg_color": "#3C0007",
+        "text_color": "#ffffff",
+        "font_size": 14,
+        "show_icon": true,
+        "icon_type": "shipping",
+        "show_close": true,
+        "scroll_text": false,
+        "show_animation": false
+      }
+    },
+    "hero-banner": {
+      "type": "hero-banner",
+      "settings": {
+        "heading": "Upgrade your drive — smart, seamless, and built for your car",
+        "subheading": "Discover premium car parts and accessories designed specifically for your vehicle. Expert installation and unmatched quality guaranteed.",
+        "button_label": "Shop All Products",
+        "button_link": "/collections/all",
+        "bg_color": "#202D36",
+        "overlay_opacity": 60,
+        "min_height": 80
+      }
+    },
+    "featured-products": {
+      "type": "product-grid-filtered",
+      "settings": {
+        "title": "Featured Products",
+        "description": "Discover our most popular car parts and accessories, trusted by thousands of customers",
+        "products_limit": 8,
+        "columns_desktop": 4,
+        "columns_mobile": 2,
+        "show_filters": true,
+        "show_vendor": false,
+        "show_view_all": true
+      }
+    },
+    "feature-icons": {
+      "type": "feature-icons",
+      "blocks": {
+        "feature-1": {
+          "type": "feature",
+          "settings": {
+            "title": "Compatibility",
+            "caption": "Perfect fit guaranteed for your specific vehicle make and model. Our expert team ensures every part matches your car's specifications."
+          }
+        },
+        "feature-2": {
+          "type": "feature",
+          "settings": {
+            "title": "Easy Install",
+            "caption": "Simple installation process with detailed instructions included. Professional installation services available in Brampton."
+          }
+        },
+        "feature-3": {
+          "type": "feature",
+          "settings": {
+            "title": "Wireless Integration",
+            "caption": "Seamless wireless connectivity with your vehicle's existing systems. Modern technology meets reliable performance."
+          }
+        },
+        "feature-4": {
+          "type": "feature",
+          "settings": {
+            "title": "24/7 Support",
+            "caption": "Expert technical support available whenever you need assistance. Call 416-309-1913 or email sales@autoenhancehub.com"
+          }
+        }
+      },
+      "block_order": [
+        "feature-1",
+        "feature-2", 
+        "feature-3",
+        "feature-4"
+      ],
+      "settings": {
+        "title": "Why Choose Auto Enhance Hub",
+        "description": "We're committed to providing the best car parts and customer experience in Brampton"
+      }
+    },
+    "install-steps": {
+      "type": "install-steps",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "title": "Prepare Your Vehicle",
+            "description": "Ensure your car is parked on level ground and the engine is cool. Gather all necessary tools and read through the installation instructions.",
+            "additional_info": "Always disconnect the battery before starting any electrical work on your vehicle."
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "title": "Remove Old Parts",
+            "description": "Carefully disconnect and remove the existing parts following safety protocols. Take photos before removal for reference.",
+            "additional_info": "Keep all original bolts and hardware in case you need to reinstall them later."
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "title": "Install New Parts",
+            "description": "Mount your new Auto Enhance Hub parts following the included step-by-step instructions. Double-check all connections.",
+            "additional_info": "Don't fully tighten bolts until all parts are in position to allow for minor adjustments."
+          }
+        },
+        "step-4": {
+          "type": "step",
+          "settings": {
+            "title": "Test & Enjoy",
+            "description": "Test all connections and functionality before taking your vehicle on the road. Enjoy your upgraded performance!",
+            "additional_info": "If you experience any issues, contact our support team at 416-309-1913 for assistance."
+          }
+        }
+      },
+      "block_order": [
+        "step-1",
+        "step-2",
+        "step-3", 
+        "step-4"
+      ],
+      "settings": {
+        "title": "Easy Installation Process",
+        "description": "Follow these simple steps to install your new car parts safely and effectively",
+        "layout": "vertical",
+        "cta_text": "Start Shopping",
+        "cta_url": "/collections/all"
+      }
+    },
+    "ugc-slider": {
+      "type": "ugc-slider",
+      "blocks": {
+        "review-1": {
+          "type": "review",
+          "settings": {
+            "quote": "Amazing quality and perfect fit for my 2019 Honda Civic. Installation was straightforward with the clear instructions provided.",
+            "author": "Mike T., Brampton"
+          }
+        },
+        "review-2": {
+          "type": "review",
+          "settings": {
+            "quote": "Outstanding customer service! They helped me find the exact part I needed and even provided installation tips over the phone.",
+            "author": "Sarah L., Mississauga"
+          }
+        },
+        "review-3": {
+          "type": "review",
+          "settings": {
+            "quote": "Fast shipping and premium quality parts. My car feels like new again! Highly recommend Auto Enhance Hub.",
+            "author": "David R., Toronto"
+          }
+        }
+      },
+      "block_order": [
+        "review-1",
+        "review-2",
+        "review-3"
+      ],
+      "settings": {
+        "title": "Customer Reviews",
+        "description": "See what our customers are saying about their experience with Auto Enhance Hub",
+        "max_slides": 10,
+        "show_navigation": true,
+        "show_pagination": true,
+        "autoplay_delay": 5000
+      }
+    },
+    "faq-accordion": {
+      "type": "faq-accordion",
+      "blocks": {
+        "faq-1": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer installation services?",
+            "answer": "<p>Yes! We provide professional installation services in the Brampton area. Our certified technicians ensure your parts are installed correctly and safely. Contact us at <strong>416-309-1913</strong> to schedule an appointment.</p>"
+          }
+        },
+        "faq-2": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I know if a part is compatible with my vehicle?",
+            "answer": "<p>Use our compatibility checker tool on each product page or contact our experts at <strong>416-309-1913</strong>. We'll help you find the perfect fit for your specific make, model, and year. Simply provide us with your VIN number for the most accurate match.</p>"
+          }
+        },
+        "faq-3": {
+          "type": "faq",
+          "settings": {
+            "question": "What is your return policy?",
+            "answer": "<p>We offer a <strong>30-day return policy</strong> on all products. Items must be in original condition with packaging. Installation fees are non-refundable. Please contact us before returning any items to ensure a smooth process.</p>"
+          }
+        },
+        "faq-4": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you offer warranties on your products?",
+            "answer": "<p>Yes, all our products come with manufacturer warranties ranging from 1-5 years depending on the item. Extended warranty options are available for select items. Contact us at <strong>sales@autoenhancehub.com</strong> for specific warranty details.</p>"
+          }
+        },
+        "faq-5": {
+          "type": "faq",
+          "settings": {
+            "question": "Do you ship across Canada?",
+            "answer": "<p>Yes, we ship nationwide across Canada. <strong>Free shipping</strong> is available on orders over $75. Express shipping options are available for urgent orders. Local customers in Brampton can also choose pickup to save on shipping costs.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq-1",
+        "faq-2",
+        "faq-3",
+        "faq-4",
+        "faq-5"
+      ],
+      "settings": {
+        "title": "Frequently Asked Questions",
+        "description": "Find answers to common questions about our products and services",
+        "contact_text": "Can't find what you're looking for? Our expert team is here to help with any questions about installation, compatibility, or product details."
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "hero-banner", 
+    "featured-products",
+    "feature-icons",
+    "install-steps",
+    "ugc-slider",
+    "faq-accordion"
+  ]
+}

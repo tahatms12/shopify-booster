@@ -1,0 +1,293 @@
+{% liquid
+  assign collection_handle = section.settings.collection
+  if collection_handle != blank
+    assign collection = collections[collection_handle]
+    assign products_with_reviews = collection.products | where: 'metafields.reviews.images'
+  else
+    assign products_with_reviews = collections.all.products | where: 'metafields.reviews.images'
+  endif
+%}
+
+<section class="ugc-slider py-16 px-4">
+  <div class="container mx-auto max-w-6xl">
+    {% if section.settings.title != blank %}
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">{{ section.settings.title }}</h2>
+        {% if section.settings.description != blank %}
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">{{ section.settings.description }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="swiper ugc-swiper" id="ugc-slider-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {% for product in products_with_reviews limit: section.settings.max_slides %}
+          {% assign review_images = product.metafields.reviews.images %}
+          {% assign review_quotes = product.metafields.reviews.quotes %}
+          {% assign review_authors = product.metafields.reviews.authors %}
+          
+          {% if review_images != blank %}
+            {% assign images_array = review_images | split: ',' %}
+            {% assign quotes_array = review_quotes | split: '|' %}
+            {% assign authors_array = review_authors | split: '|' %}
+            
+            {% for image_url in images_array %}
+              {% assign index = forloop.index0 %}
+              <div class="swiper-slide">
+                <div class="ugc-card bg-white rounded-lg shadow-lg overflow-hidden">
+                  <div class="ugc-image-container relative">
+                    <img 
+                      src="{{ image_url | strip }}" 
+                      alt="Customer review of {{ product.title }}"
+                      loading="lazy"
+                      class="w-full h-64 object-cover"
+                    >
+                    <div class="absolute top-4 left-4">
+                      <span class="bg-black bg-opacity-70 text-white px-2 py-1 rounded text-sm">
+                        {{ product.title | truncate: 30 }}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {% if quotes_array[index] != blank %}
+                    <div class="p-6">
+                      <div class="flex mb-3">
+                        {% for i in (1..5) %}
+                          <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                            <path d="M10 15l-5.878 3.09 1.123-6.545L0 6.91l6.564-.955L10 0l3.436 5.955L20 6.91l-5.245 4.635L15.878 18z"/>
+                          </svg>
+                        {% endfor %}
+                      </div>
+                      
+                      <blockquote class="text-gray-700 mb-4 italic">
+                        "{{ quotes_array[index] | strip }}"
+                      </blockquote>
+                      
+                      {% if authors_array[index] != blank %}
+                        <cite class="text-sm text-gray-500 not-italic">
+                          — {{ authors_array[index] | strip }}
+                        </cite>
+                      {% endif %}
+                      
+                      <div class="mt-4">
+                        <a href="{{ product.url }}" class="text-red-600 hover:text-red-700 font-medium text-sm">
+                          View Product →
+                        </a>
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+        
+        {% comment %} Fallback static reviews if no metafield reviews {% endcomment %}
+        {% if products_with_reviews.size == 0 %}
+          {% for block in section.blocks %}
+            <div class="swiper-slide">
+              <div class="ugc-card bg-white rounded-lg shadow-lg overflow-hidden">
+                {% if block.settings.image %}
+                  <div class="ugc-image-container">
+                    <img 
+                      src="{{ block.settings.image | image_url: width: 400 }}" 
+                      alt="{{ block.settings.quote | escape }}"
+                      loading="lazy"
+                      class="w-full h-64 object-cover"
+                    >
+                  </div>
+                {% endif %}
+                
+                <div class="p-6">
+                  <div class="flex mb-3">
+                    {% for i in (1..5) %}
+                      <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L0 6.91l6.564-.955L10 0l3.436 5.955L20 6.91l-5.245 4.635L15.878 18z"/>
+                      </svg>
+                    {% endfor %}
+                  </div>
+                  
+                  {% if block.settings.quote != blank %}
+                    <blockquote class="text-gray-700 mb-4 italic">
+                      "{{ block.settings.quote }}"
+                    </blockquote>
+                  {% endif %}
+                  
+                  {% if block.settings.author != blank %}
+                    <cite class="text-sm text-gray-500 not-italic">
+                      — {{ block.settings.author }}
+                    </cite>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% endif %}
+      </div>
+      
+      {% if section.settings.show_navigation %}
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+      {% endif %}
+      
+      {% if section.settings.show_pagination %}
+        <div class="swiper-pagination"></div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  new Swiper('#ugc-slider-{{ section.id }}', {
+    slidesPerView: 1,
+    spaceBetween: 20,
+    loop: true,
+    autoplay: {
+      delay: {{ section.settings.autoplay_delay | default: 5000 }},
+      disableOnInteraction: false,
+    },
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    pagination: {
+      el: '.swiper-pagination',
+      clickable: true,
+    },
+    breakpoints: {
+      640: {
+        slidesPerView: 2,
+        spaceBetween: 20,
+      },
+      1024: {
+        slidesPerView: 3,
+        spaceBetween: 30,
+      },
+    },
+  });
+});
+</script>
+
+<style>
+  .ugc-slider .swiper-button-next,
+  .ugc-slider .swiper-button-prev {
+    color: var(--color-brand-red);
+  }
+  
+  .ugc-slider .swiper-pagination-bullet-active {
+    background: var(--color-brand-red);
+  }
+  
+  .ugc-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .ugc-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+  
+  .ugc-image-container {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .ugc-image-container img {
+    transition: transform 0.3s ease;
+  }
+  
+  .ugc-card:hover .ugc-image-container img {
+    transform: scale(1.05);
+  }
+</style>
+
+{% schema %}
+{
+  "name": "UGC Slider",
+  "tag": "section",
+  "class": "section section-ugc-slider",
+  "max_blocks": 10,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "Customer Reviews"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Section description",
+      "default": "See what our customers are saying about their purchases"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection for reviews",
+      "info": "Products with review metafields will be displayed"
+    },
+    {
+      "type": "range",
+      "id": "max_slides",
+      "label": "Maximum slides",
+      "min": 3,
+      "max": 20,
+      "step": 1,
+      "default": 10
+    },
+    {
+      "type": "checkbox",
+      "id": "show_navigation",
+      "label": "Show navigation arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show pagination dots",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_delay",
+      "label": "Autoplay delay (ms)",
+      "min": 3000,
+      "max": 10000,
+      "step": 500,
+      "default": 5000
+    }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Static Review",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Review image"
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Review quote"
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Review author"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UGC Slider"
+    }
+  ]
+}
+{% endschema %}
